@@ -102,7 +102,9 @@
           <a href="{{ route('comments.edit', $comment) }}" class="btn btn-link btn-sm p-0">Edit</a>
           <form method="POST" action="{{ route('comments.destroy', $comment) }}"
                 onsubmit="return confirm('Delete this comment?')">
-            @csrf @method('DELETE')
+            @csrf
+            @method('DELETE')
+             <input type="hidden" name="return_to" value="{{ url()->current() }}">
             <button class="btn btn-link btn-sm text-danger p-0">Delete</button>
           </form>
         </div>

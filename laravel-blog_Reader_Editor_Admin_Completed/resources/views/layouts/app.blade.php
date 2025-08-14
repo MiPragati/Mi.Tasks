@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Blog CMS</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    @stack('styles')
 </head>
 <body class="antialiased">
     <nav class="bg-gray-800 text-white p-4">
@@ -39,5 +41,7 @@
         @if(session('success')) <div class="bg-green-200 p-2 mb-4">{{ session('success') }}</div> @endif
         @yield('content')
     </main>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  @stack('scripts')
 </body>
 </html>

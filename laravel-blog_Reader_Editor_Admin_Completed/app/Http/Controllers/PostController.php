@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Notification;
+use App\Models\User;
+use App\Notifications\NewPostPublished;
 
 class PostController extends Controller
 {
@@ -89,7 +92,9 @@ class PostController extends Controller
             $post->tags()->sync($tags);
         }
 
-        // If admin route or admin user, go back to admin posts list; else to "My posts"
+        $recipients = User::where('id', '!=', auth()->id())->get();
+    Notification::send($recipients, new NewPostPublished($post));
+
         if ($request->routeIs('admin.*') || (auth()->user()?->role === 'admin')) {
             return redirect()->route('admin.posts.index')->with('success', 'Post created.');
         }
